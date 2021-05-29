@@ -7,15 +7,17 @@
 		"postinstall": "rimraf ./build && npm run tsc",
 		"build": "rimraf ./build && npm run tsc",
 		"watch": "tsc -w",
-		"dev": "NODE_ENV=development nodemon build/app.js",
-		"start": "NODE_ENV=production node build/app.js",
-		"test": "NODE_ENV=test TS_NODE_FILES=true mocha --exit --require ts-node/register --colors tests/**/*.ts --timeout 10000",
+		"dev": "export NODE_ENV=development && npm run seed && nodemon build/app.js",
+		"seed": "node build/seed.js",
+		"start": "export NODE_ENV=production && node build/app.js",
+		"test": "export NODE_ENV=test && npm run seed && TS_NODE_FILES=true mocha --exit --require ts-node/register --colors tests/**/*.ts --timeout 10000",
 		"coverage": "nyc --reporter=html npm run test",
 		"lint": "eslint --fix src/**/*.ts"
 	},
 	"author": "Charles Onunze <https://github.com/charlesonunze>",
 	"license": "ISC",
 	"devDependencies": {
+		"@types/bcrypt": "^5.0.0",
 		"@types/body-parser": "^1.19.0",
 		"@types/chai": "^4.2.14",
 		"@types/compression": "^1.7.0",
@@ -43,6 +45,7 @@
 		"typescript": "^3.6.2"
 	},
 	"dependencies": {
+		"bcrypt": "^5.0.1",
 		"body-parser": "^1.19.0",
 		"compression": "^1.7.4",
 		"cors": "^2.8.5",
