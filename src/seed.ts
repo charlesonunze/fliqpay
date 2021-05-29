@@ -1,7 +1,7 @@
 import { logger } from './utils/main.logger';
 import { connectDB, disconnectDB } from './startup/db';
 import { RoleModel, Roles } from './models/role.model';
-import { IUserObject, UserModel } from './models/user.model';
+import { IUser, IUserObject, UserModel } from './models/user.model';
 import { TicketModel } from './models/ticket.model';
 import { CommentModel } from './models/comment.model';
 import UserService from './services/user.service';
@@ -68,7 +68,7 @@ const roles = [
 
 	const _users = users.map((user) => {
 		return new Promise((resolve, reject) => {
-			UserService.createUser(user)
+			UserService.createUser(user as IUser)
 				.then((user: unknown) => {
 					resolve(user);
 				})

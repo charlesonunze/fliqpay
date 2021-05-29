@@ -53,6 +53,7 @@ roleSchema.index({ name: 1 });
 const RoleModel = model<IRole>('Role', roleSchema);
 
 export {
+	IRole,
 	IRoleObject,
 	RoleModel,
 	Roles,

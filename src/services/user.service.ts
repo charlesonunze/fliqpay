@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
-import { IUserObject } from '../models/user.model';
+import { IUser, IUserObject } from '../models/user.model';
 import UserRepo from '../repos/user.repo';
 import { DuplicateResourceError } from '../utils/errorHandler';
 
 const userRepo = new UserRepo();
 
 class UserService {
-	static async createUser(userObject: IUserObject) {
+	static async createUser(userObject: IUser) {
 		const { email, password } = userObject;
 		let user = await UserService.getUser({ email });
 		if (user)
@@ -17,7 +17,7 @@ class UserService {
 		const salt = await bcrypt.genSalt(10);
 		userObject.password = await bcrypt.hash(password!, salt);
 
-		user = (await userRepo.save({ ...userObject })) as IUserObject;
+		user = await userRepo.insertOne(userObject);
 		user.password = undefined;
 		return user;
 	}
@@ -26,7 +26,7 @@ class UserService {
 		const { email, password } = userObject;
 		if (!email) return null;
 
-		const user = (await userRepo.findOne({ email })) as IUserObject;
+		const user = await userRepo.findOne({ email });
 		if (!user) return null;
 
 		if (password) {
