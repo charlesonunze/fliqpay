@@ -1,7 +1,7 @@
 import BaseRepo from './base.repo';
-import { TicketModel } from '../models/ticket.model';
+import { ITicket, TicketModel } from '../models/ticket.model';
 
-class TicketRepo extends BaseRepo {
+class TicketRepo extends BaseRepo<ITicket> {
 	constructor() {
 		super(TicketModel);
 	}

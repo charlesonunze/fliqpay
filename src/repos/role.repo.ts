@@ -1,7 +1,7 @@
 import BaseRepo from './base.repo';
-import { RoleModel } from '../models/role.model';
+import { IRole, RoleModel } from '../models/role.model';
 
-class RoleRepo extends BaseRepo {
+class RoleRepo extends BaseRepo<IRole> {
 	constructor() {
 		super(RoleModel);
 	}

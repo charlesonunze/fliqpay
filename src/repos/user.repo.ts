@@ -1,7 +1,7 @@
 import BaseRepo from './base.repo';
-import { UserModel } from '../models/user.model';
+import { IUser, UserModel } from '../models/user.model';
 
-class UserRepo extends BaseRepo {
+class UserRepo extends BaseRepo<IUser> {
 	constructor() {
 		super(UserModel);
 	}

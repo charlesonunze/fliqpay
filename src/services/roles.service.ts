@@ -21,15 +21,15 @@ class RolesService {
 		switch (role) {
 			case Roles.Admin:
 				userRole.claims = Object.values(AdminClaims);
-				return await roleRepo.save({ ...userRole });
+				return await roleRepo.insertOne(userRole);
 
 			case Roles.Agent:
 				userRole.claims = Object.values(AgentClaims);
-				return await roleRepo.save({ ...userRole });
+				return await roleRepo.insertOne(userRole);
 
 			case Roles.Customer:
 				userRole.claims = Object.values(CustomerClaims);
-				return await roleRepo.save({ ...userRole });
+				return await roleRepo.insertOne(userRole);
 		}
 	}
 

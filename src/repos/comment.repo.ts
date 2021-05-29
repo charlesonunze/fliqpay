@@ -1,7 +1,7 @@
 import BaseRepo from './base.repo';
-import { CommentModel } from '../models/comment.model';
+import { CommentModel, IComment } from '../models/comment.model';
 
-class CommentRepo extends BaseRepo {
+class CommentRepo extends BaseRepo<IComment> {
 	constructor() {
 		super(CommentModel);
 	}
