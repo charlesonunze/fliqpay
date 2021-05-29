@@ -1,5 +1,4 @@
 import { Application } from 'express';
-import { todoRoutes } from '../routes/todo.route';
 import { swaggerRoute } from '../routes/docs.route';
 
 export const loadRoutes = (app: Application) => {
@@ -9,7 +8,6 @@ export const loadRoutes = (app: Application) => {
 	});
 
 	// API Routes
-	app.use('/api/v1', todoRoutes);
 
 	// Swagger Docs
 	app.use('/api/docs', swaggerRoute);

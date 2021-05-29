@@ -1,5 +1,5 @@
 {
-	"name": "node-api-starter",
+	"name": "tickets-on-fliq",
 	"version": "1.0.5",
 	"main": "app.js",
 	"scripts": {

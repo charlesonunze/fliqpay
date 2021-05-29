@@ -1,8 +1,7 @@
 import cors from 'cors';
 import helmet from 'helmet';
-import bodyParser from 'body-parser';
 import compression from 'compression';
-import { Application } from 'express';
+import express, { Application } from 'express';
 import { registerRequestLogger } from '../utils/http.logger';
 
 const corsOptions = {
@@ -18,10 +17,10 @@ export const loadMiddleware = (app: Application) => {
 	app.use(helmet());
 
 	app.use(
-		bodyParser.urlencoded({
+		express.urlencoded({
 			limit: '5mb',
 			extended: true
 		})
 	);
-	app.use(bodyParser.json());
+	app.use(express.json());
 };
