@@ -6,7 +6,7 @@ import { UnauthorizedError, UserError } from '../utils/errorHandler';
 
 export default function (req: Request, _: Response, next: NextFunction) {
 	const token = req.headers.authorization?.split(' ')[1];
-	console.log('TOKEN >>>>>>>', token);
+
 	if (!token) {
 		throw new UnauthorizedError(
 			'Access denied. You need to be logged in to perform this action.'
