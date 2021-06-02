@@ -41,7 +41,7 @@ class AuthController {
 		const user = await UserService.getUser(userObject);
 		if (!user) throw new UserError('Invalid email or password.');
 
-		const token = jwt.sign(user, JWT_PRIVATE_KEY, {
+		const token = jwt.sign({ ...user }, JWT_PRIVATE_KEY, {
 			expiresIn: JWT_EXPIRY_TIME
 		});
 
