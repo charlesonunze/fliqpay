@@ -30,3 +30,30 @@ export const validateSignupData = (data: anyObject) => {
 
 	return schema.validate(data);
 };
+
+export const validateTicket = (data: anyObject) => {
+	const schema = Joi.object({
+		title: Joi.string().trim().min(6).max(256).required(),
+		description: Joi.string().trim().min(6).max(256).required()
+	});
+
+	return schema.validate(data);
+};
+
+export const validateObjectId = (data: anyObject) => {
+	const schema = Joi.object({
+		_id: Joi.string()
+			.regex(/^[0-9a-fA-F]{24}$/, 'valid mongo id')
+			.required()
+	});
+
+	return schema.validate(data);
+};
+
+export const validateComment = (data: anyObject) => {
+	const schema = Joi.object({
+		body: Joi.string().trim().min(6).max(256).required()
+	});
+
+	return schema.validate(data);
+};
