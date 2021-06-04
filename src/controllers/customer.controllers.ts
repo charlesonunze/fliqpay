@@ -97,7 +97,6 @@ class CustomerController {
 
 		return sendResponse({
 			res,
-			statusCode: 201,
 			data: { comments }
 		});
 	};
