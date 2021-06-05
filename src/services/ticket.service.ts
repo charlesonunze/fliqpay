@@ -41,6 +41,49 @@ class TicketService {
 	static async getTicketsCount() {
 		return await ticketRepo.getEstimatedDocCount();
 	}
+
+	static async updateTicketById(
+		ticketId: ITicket['_id'],
+		propsToUpdate: ITicketObject
+	) {
+		return await ticketRepo.findOneAndUpdate(
+			{ _id: ticketId },
+			{ $set: propsToUpdate },
+			{ new: true }
+		);
+	}
+
+	static async getReport() {
+		const today = new Date();
+		const todayLastMonth = new Date(
+			today.getFullYear(),
+			today.getMonth() - 1,
+			today.getDate() + 1
+		);
+
+		const pipeline: any[] = [
+			{
+				$match: {
+					status: 'closed',
+					$and: [
+						{ closedAt: { $gte: todayLastMonth } },
+						{ closedAt: { $lt: today } }
+					]
+				}
+			},
+			{ $sort: { closedAt: -1 } },
+			{
+				$project: {
+					Title: '$title',
+					Description: '$description',
+					Status: '$status',
+					'Date Closed': '$closedAt'
+				}
+			}
+		];
+
+		return await ticketRepo.aggregate(pipeline);
+	}
 }
 
 export default TicketService;

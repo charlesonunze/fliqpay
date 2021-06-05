@@ -12,3 +12,25 @@ export const sendResponse = ({
 		data
 	});
 };
+
+export const sendFile = ({
+	res,
+	filePath,
+	mimeType,
+	statusCode = 200
+}: ResponseParams) => {
+	switch (mimeType) {
+		case 'csv':
+			res.header('Content-Type', 'text/csv');
+			break;
+
+		case 'pdf':
+			res.header('Content-Type', 'application/pdf');
+			break;
+
+		default:
+			break;
+	}
+
+	res.status(statusCode).sendFile(filePath!);
+};
