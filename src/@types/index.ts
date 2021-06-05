@@ -5,6 +5,8 @@ export interface ResponseParams {
 	message?: string;
 	data?: anyObject;
 	statusCode?: number;
+	filePath?: string;
+	mimeType?: string;
 }
 
 export type anyObject = Record<string, unknown>;
@@ -12,4 +14,5 @@ export type anyObject = Record<string, unknown>;
 export interface QueryParams {
 	pageNo?: string;
 	pageSize?: string;
+	format?: string;
 }

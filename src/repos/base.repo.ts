@@ -65,6 +65,10 @@ class BaseRepo<T extends Document> {
 	async aggregate(pipeline: any[]) {
 		return this.model.aggregate(pipeline).exec();
 	}
+
+	async getEstimatedDocCount() {
+		return this.model.estimatedDocumentCount();
+	}
 }
 
 export default BaseRepo;
