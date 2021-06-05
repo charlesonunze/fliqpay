@@ -118,6 +118,29 @@ describe('CUSTOMERS ROUTES', () => {
 		});
 	});
 
+	describe('GET TICKETS - GET /api/v1/customers/tickets', () => {
+		test('should get tickets created by customer', async () => {
+			const url = `/customers/tickets?pageNo=1&&pageSize=5`;
+			const response = await makeGetRequest(url, customer1Token);
+
+			expect(response.status).toEqual(200);
+			expect(response.body.success).toEqual(true);
+			expect(response.body.data).toHaveProperty('tickets');
+			expect(response.body.data).toHaveProperty('count');
+		});
+
+		test('should throw an error if pagination params are not provided', async () => {
+			const url = `/customers/tickets`;
+			const response = await makeGetRequest(url, customer1Token);
+
+			expect(response.status).toEqual(422);
+			expect(response.body.success).toEqual(false);
+			expect(response.body.message).toEqual(
+				'Please append the appropriate query strings to the request URL.'
+			);
+		});
+	});
+
 	describe('GET TICKET - GET /api/v1/customers/tickets/:ticketId', () => {
 		test('should get a single ticket', async () => {
 			const url = `/customers/tickets/${ticketId}`;
