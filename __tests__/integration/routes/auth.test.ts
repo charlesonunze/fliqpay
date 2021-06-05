@@ -4,9 +4,13 @@ import request from 'supertest';
 export const apiEndpoint = '/api/v1';
 import app from '../../../src/app';
 import { JWT_PRIVATE_KEY } from '../../../src/config';
+import { disconnectDB } from '../../../src/startup/db';
 
 describe('AUTHENTICATION ROUTES', () => {
-	afterAll(() => app.close());
+	afterAll(() => {
+		app.close();
+		disconnectDB();
+	});
 
 	async function makeLoginRequest(loginDetails: {
 		email: string;

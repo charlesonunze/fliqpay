@@ -8,12 +8,14 @@ enum AdminClaims {
 
 enum AgentClaims {
 	CanViewTickets = 'can_view_tickets',
-	CanManageTickets = 'can_manage_tickets'
+	CanManageTickets = 'can_manage_tickets',
+	CanCommentOnTickets = 'can_comment_on_tickets'
 }
 
 enum CustomerClaims {
 	CanViewTickets = 'can_view_tickets',
-	CanCreateTickets = 'can_create_tickets'
+	CanCreateTickets = 'can_create_tickets',
+	CanCommentOnTickets = 'can_comment_on_tickets'
 }
 
 const Claims = {

@@ -1,7 +1,7 @@
 import { Document, Schema, model } from 'mongoose';
 import { IUser } from './user.model';
 
-enum Status {
+enum TicketStatus {
 	Open = 'open',
 	Closed = 'closed',
 	IsActive = 'is_active',
@@ -10,7 +10,7 @@ enum Status {
 
 interface ITicket extends Document {
 	title: string;
-	status: Status;
+	status: TicketStatus;
 	description: string;
 	createdAt: Date;
 	createdBy: IUser;
@@ -39,8 +39,8 @@ const ticketSchema = new Schema(
 		},
 		status: {
 			type: String,
-			enum: Object.values(Status),
-			default: Status.Open
+			enum: Object.values(TicketStatus),
+			default: TicketStatus.Open
 		},
 		description: {
 			type: String,
@@ -70,4 +70,4 @@ ticketSchema.index({ status: 1, closedAt: 1 });
 
 const TicketModel = model<ITicket>('Ticket', ticketSchema);
 
-export { TicketModel, ITicket, ITicketObject, Status };
+export { TicketModel, ITicket, ITicketObject, TicketStatus };

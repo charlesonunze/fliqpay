@@ -9,6 +9,7 @@ interface IUser extends Document {
 }
 
 interface IUserObject {
+	_id?: IUser['_id'];
 	email?: IUser['email'];
 	role?: IUser['role'];
 	username?: IUser['username'];

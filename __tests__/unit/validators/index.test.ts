@@ -1,7 +1,10 @@
 import {
 	handleValidationError,
+	validateComment,
 	validateLoginData,
-	validateSignupData
+	validateObjectId,
+	validateSignupData,
+	validateTicket
 } from '../../../src/validators';
 
 describe('VALIDATOR FUNCTIONS', () => {
@@ -49,6 +52,56 @@ describe('VALIDATOR FUNCTIONS', () => {
 
 			expect(passed.error).toEqual(undefined);
 			expect(failed.error!.message).toEqual(`"username" is required`);
+		});
+	});
+
+	describe('validateTicket', () => {
+		test('should validate a ticket', () => {
+			const invalidData = {};
+			const validData = {
+				title: 'My first ticket',
+				description: 'This is my first ticket'
+			};
+
+			const failed = validateTicket(invalidData);
+			const passed = validateTicket(validData);
+
+			expect(passed.error).toEqual(undefined);
+			expect(failed.error!.message).toEqual(`"title" is required`);
+		});
+	});
+
+	describe('validateObjectId', () => {
+		test('should validate an ObjectId', () => {
+			const invalidData = {
+				_id: 'invalid object id'
+			};
+			const validData = {
+				_id: '60b8cdbd73fc62e14cacaf68'
+			};
+
+			const failed = validateObjectId(invalidData);
+			const passed = validateObjectId(validData);
+
+			expect(passed.error).toEqual(undefined);
+			expect(failed.error!.message).toEqual(
+				`"_id" with value "invalid object id" fails to match the valid mongo id pattern`
+			);
+		});
+	});
+
+	describe('validateComment', () => {
+		test('should validate a comment', () => {
+			const invalidData = {};
+			const validData = {
+				body: 'My first comment'
+			};
+
+			const failed = validateComment(invalidData);
+			const passed = validateComment(validData);
+
+			expect(passed.error).toEqual(undefined);
+			expect(failed.error!.message).toEqual(`"body" is required`);
 		});
 	});
 });

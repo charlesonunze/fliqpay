@@ -10,7 +10,7 @@
 		"dev": "export NODE_ENV=development && npm run seed && nodemon build/app.js",
 		"seed": "node build/seed.js",
 		"start": "export NODE_ENV=production && node build/app.js",
-		"test": "export NODE_ENV=test && npm run seed && jest --coverage",
+		"test": "export NODE_ENV=test && npm run seed && jest --coverage --runInBand --detectOpenHandles",
 		"lint": "eslint --fix src/**/*.ts"
 	},
 	"author": "Charles Onunze <https://github.com/charlesonunze>",
