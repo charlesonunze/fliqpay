@@ -3,6 +3,7 @@ import { authRoutes } from '../routes/v1/auth.route';
 import { swaggerRoute } from '../routes/docs.route';
 import { customerRoutes } from '../routes/v1/customer.route';
 import { agentRoutes } from '../routes/v1/agent.route';
+import { adminRoutes } from '../routes/v1/admin.route';
 
 export const loadRoutes = (app: Application) => {
 	// Root Route
@@ -14,6 +15,7 @@ export const loadRoutes = (app: Application) => {
 	app.use('/api/v1', authRoutes);
 	app.use('/api/v1', customerRoutes);
 	app.use('/api/v1', agentRoutes);
+	app.use('/api/v1', adminRoutes);
 
 	// Swagger Docs
 	app.use('/api/docs', swaggerRoute);
