@@ -7,6 +7,7 @@ import CustomerController from '../../controllers/customer.controllers';
 
 const router = Router();
 
+// CREATE TICKET
 router.post(
 	'/customers/tickets',
 	[
@@ -16,6 +17,17 @@ router.post(
 	catchAsyncErrors(CustomerController.createTicket)
 );
 
+// GET TICKETs
+router.get(
+	'/customers/tickets',
+	[
+		catchAsyncErrors(isAuthenticated),
+		catchAsyncErrors(hasClaim(Claims.CanCreateTickets))
+	],
+	catchAsyncErrors(CustomerController.getTickets)
+);
+
+// GET TICKET BY ID
 router.get(
 	'/customers/tickets/:ticketId',
 	[
@@ -25,6 +37,7 @@ router.get(
 	catchAsyncErrors(CustomerController.getTicket)
 );
 
+// POST COMMENTS
 router.post(
 	'/customers/tickets/:ticketId/comments',
 	[
@@ -34,6 +47,7 @@ router.post(
 	catchAsyncErrors(CustomerController.addCommentToTicket)
 );
 
+// GET COMMENTS
 router.get(
 	'/customers/tickets/:ticketId/comments',
 	[

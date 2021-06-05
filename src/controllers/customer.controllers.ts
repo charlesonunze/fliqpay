@@ -6,10 +6,16 @@ import {
 	validateObjectId
 } from '../validators';
 import TicketService from '../services/ticket.service';
-import { ForbiddenError, NotFoundError } from '../utils/errorHandler';
+import {
+	ForbiddenError,
+	NotFoundError,
+	ValidationError
+} from '../utils/errorHandler';
 import { sendResponse } from '../utils/response';
 import { TicketStatus } from '../models/ticket.model';
 import CommentsService from '../services/comments.service';
+import { QueryParams } from '../@types';
+import { paginateData } from '../utils';
 
 class CustomerController {
 	static createTicket: RequestHandler = async (req, res) => {
@@ -45,6 +51,28 @@ class CustomerController {
 		return sendResponse({
 			res,
 			data: { ticket }
+		});
+	};
+
+	static getTickets: RequestHandler = async (req, res) => {
+		const { pageNo, pageSize } = req.query as QueryParams;
+		if (!pageNo || !pageSize)
+			throw new ValidationError(
+				'Please append the appropriate query strings to the request URL.'
+			);
+
+		const options = paginateData(pageNo!, pageSize!);
+
+		const customerId = req.user._id;
+		const tickets = await TicketService.getTickets(
+			{ createdBy: customerId },
+			options
+		);
+		const count = await TicketService.getTicketsCount();
+
+		return sendResponse({
+			res,
+			data: { tickets, count }
 		});
 	};
 
